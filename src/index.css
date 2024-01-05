@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+Table thead {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  margin: 0 0 0 0;
+}
