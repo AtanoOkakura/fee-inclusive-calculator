@@ -1,2 +1,2 @@
 yarn build
-cp -r build doc
+cp -r build docs
