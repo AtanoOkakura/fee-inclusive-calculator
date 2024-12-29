@@ -7,9 +7,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1.header {
+  margin: 20px auto;
+}
+
+h2 {
+  margin-top: 3rem !important;
+}
+
+h3 {
+  margin-top: 1.6rem !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+footer {
+  margin-top: 20px;
+  border-top: 1px solid #333;
+  padding: 20px auto;
 }
 
 Table thead {
@@ -17,4 +35,27 @@ Table thead {
   position: sticky;
   top: 0px;
   margin: 0 0 0 0;
+}
+
+dl {
+  margin-top: 1rem !important;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+dl dt {
+  background-color: antiquewhite;
+  padding: 0.8rem;
+  margin-top: .5rem;
+  width: 30%;
+}
+
+footer dl dt {
+  background-color: inherit;
+}
+
+dl dd {
+  padding: 0.8rem;
+  margin-top: .5rem;
+  width: 70%;
 }
