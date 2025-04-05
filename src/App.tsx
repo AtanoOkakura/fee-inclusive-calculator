@@ -30,6 +30,11 @@ function App() {
       </div>
       <FeeViewer price={price} />
       <div>
+        <h2>このサイトについて</h2>
+        <p>
+          手数料が異なる複数のクラウドソージングサービスに登録するとき、同じ金額を受け取るには販売価格をいくらに設定すればよいのか1発で計算できるツールです。
+        </p>
+        <p>他に追加してほしいサービスや不具合等あったら気軽にお問い合わせください。</p>
         <h2>使い方</h2>
         <p>手取り価格を入力すると、その金額を受け取れる手数料込みの販売価格を確認できます。</p>
         <p>購入者側にも手数料がかかる場合は購入時価格に表示されます。</p>
@@ -60,7 +65,7 @@ function App() {
         <dl>
           <dt>つくったひと</dt>
           <dd><a href="https://x.com/AtanoOkakura">アタノ (Twitter)</a></dd>
-          <dt>お問い合わせ / 投げ銭</dt>
+          <dt>投げ銭</dt>
           <dd><a href="https://ofuse.me/916e14fe">OFUSE</a></dd>
         </dl>
       </footer>
@@ -71,6 +76,7 @@ function App() {
 interface CrowdsourcingSurvice {
   name: string;
   sellerFee: number;
+  sellerFixedFee: number;
   vendorFee: number | null;
   range: [number, number] | null;
   //備考
@@ -85,16 +91,27 @@ function FeeViewer(props: { price: number }) {
   const calcPriceWithFee = (price: number, fee: number) => {
     return Math.round(price * (1 / (1 - fee)));
   };
-  const [feeList, setFeeList] = React.useState<CrowdsourcingSurvice[]>([
-    // {
-    //   name: "つなぐ",
-    //   fee: 2.8,
-    //   range: [],
-    //   note: "銀行決済"
-    // },
+  const [feeList, _] = React.useState<CrowdsourcingSurvice[]>([
     {
-      name: "つなぐ",
+      name: "つなぐ(銀行振込)",
+      sellerFee: 2.8,
+      vendorFee: null,
+      sellerFixedFee: 0,
+      range: null,
+      note: "銀行決済"
+    },
+    {
+      name: "Paypal(国内取引)",
+      sellerFee: 3.6,
+      sellerFixedFee: 40,
+      vendorFee: null,
+      range: null,
+      note: "3.6%+40円"
+    },
+    {
+      name: "つなぐ(クレカ・コンビニ)",
       sellerFee: 5.5,
+      sellerFixedFee: 0,
       vendorFee: null,
       range: null,
       note: "銀行決済時は2.8%"
@@ -102,6 +119,7 @@ function FeeViewer(props: { price: number }) {
     {
       name: "アズカリ",
       sellerFee: 4.4,
+      sellerFixedFee: 0,
       vendorFee: 4.4,
       range: null,
       note: "購入者は+4.4%"
@@ -109,18 +127,21 @@ function FeeViewer(props: { price: number }) {
     {
       name: "SKIMA",
       sellerFee: 22,
+      sellerFixedFee: 0,
       vendorFee: null,
       range: [0, 20000],
       note: "2万以下は22%"
     }, {
       name: "SKIMA",
       sellerFee: 16,
+      sellerFixedFee: 0,
       vendorFee: null,
       range: [20001, 50000],
       note: "5万以下16%"
     }, {
       name: "SKIMA",
       sellerFee: 11,
+      sellerFixedFee: 0,
       vendorFee: null,
       range: [50001, 100000000],
       note: "5万超過は11%"
@@ -128,6 +149,7 @@ function FeeViewer(props: { price: number }) {
     {
       name: "ココナラ",
       sellerFee: 22,
+      sellerFixedFee: 0,
       vendorFee: 5.5,
       range: null,
       note: "購入者は+5.5%"
@@ -148,14 +170,14 @@ function FeeViewer(props: { price: number }) {
     <tbody>
       {
         feeList.filter((cs) => (cs.range?.length === 2 && props.price >= cs.range[0] && props.price <= cs.range[1]) || cs.range === null).map((cs, i) => {
-          const priceWithSellerFee = calcPriceWithFee(props.price, cs.sellerFee / 100);
+          const priceWithSellerFee = calcPriceWithFee(props.price, cs.sellerFee / 100) + cs.sellerFixedFee;
           const priceWithVendorFee = cs.vendorFee ? Math.floor(priceWithSellerFee + (priceWithSellerFee * (cs.vendorFee / 100))) : null;
           return (<tr key={i}>
             <td>{cs.name}</td>
             <td>{cs.sellerFee}%</td>
             <td>{props.price}円</td>
             <td>{priceWithSellerFee}円</td>
-            <td>{priceWithVendorFee || "---"}</td>
+            <td>{priceWithVendorFee || priceWithSellerFee}</td>
             <td>{cs.note}</td>
             {/* <td>{calcPriceWithFee(calcPriceWithFee(props.price, cs.fee / 100), 0.1)}円</td> */}
           </tr>);
