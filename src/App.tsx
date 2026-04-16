@@ -42,7 +42,7 @@ function App() {
         <dl>
           <dt>つなぐ</dt>
           <dd>銀行決済時は2.8%、クレジットカード・コンビニ決済は5.5%。<br />
-            <a href="https://tsunagu.cloud/questions">よくある質問 - システム手数料(仲介手数料)に関して</a></dd>
+            <a href="https://tsunagu-community.com/faq/">よくある質問 - システム手数料(仲介手数料)に関して</a></dd>
           <dt>アズカリ</dt>
           <dd>
             販売者4.4%、購入者4.4%。<br />
@@ -56,6 +56,8 @@ function App() {
             <a href="https://visualworks.zendesk.com/hc/ja/articles/115007849987-%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E5%88%A9%E7%94%A8%E6%96%99%E9%87%91%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">サービス利用料金について</a></dd>
           <dt>ココナラ</dt>
           <dd>
+            販売者手数料率(22%)<br />
+            購入者手数料率(5.5%)<br />
             <a href="https://coconala.com/pages/guide_sell">ご利用ガイド - サービスを出品したい</a><br />
             <a href="https://coconala.com/pages/guide_payment#payment-purchase">ご利用ガイド - お支払い方法</a>
           </dd>
